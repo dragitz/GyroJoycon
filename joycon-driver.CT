@@ -1,0 +1,976 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="28">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Data"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(CopyBlue,1000)
+registersymbol(CopyBlue)
+CopyBlue:
+db 0
+alloc(backupBlue,08)
+backupBlue:
+dd 0
+
+alloc(CopyRed,1000)
+registersymbol(CopyRed)
+CopyRed:
+db 0
+alloc(backupRed,08)
+backupRed:
+dd 0
+
+
+aobscanmodule(Data,joycon-driver.exe,66 89 56 30 83 F8 03) // should be unique
+alloc(Tracker,$1000)
+
+label(code)
+label(return)
+label(Blue)
+label(Red)
+
+
+Tracker:
+cmp [esi+2C],#1 //Joystic id
+je Blue
+cmp [esi+2C],#2 //Joystic id
+je Red
+jmp code
+
+
+code:
+//mov ecx,0
+  mov [esi+30],dx
+  cmp eax,03
+  jmp return
+
+Blue:
+mov [backupBlue],ecx
+  mov [esi+30],dx
+  cmp eax,03
+
+  mov ecx,[esi+30]
+  mov [CopyBlue],ecx //Buttons
+  mov ecx,[esi+34]
+  mov [CopyBlue+04],ecx //UP
+  mov ecx,[esi+38]
+  mov [CopyBlue+08],ecx //Down
+  mov ecx,[esi+3C]
+  mov [CopyBlue+0C],ecx //Left
+  mov ecx,[esi+40]
+  mov [CopyBlue+10],ecx //Right
+  mov ecx,[esi+44]
+  mov [CopyBlue+14],ecx // L
+  mov ecx,[esi+48]
+  mov [CopyBlue+18],ecx // ZL
+  mov ecx,[esi+4C]
+  mov [CopyBlue+1C],ecx // Minus (-)
+  mov ecx,[esi+50]
+  mov [CopyBlue+20],ecx // Screengrab
+  mov ecx,[esi+54]
+  mov [CopyBlue+24],ecx //
+  mov ecx,[esi+58]
+  mov [CopyBlue+28],ecx //
+  mov ecx,[esi+5C]
+  mov [CopyBlue+2C],ecx //
+  mov ecx,[esi+60]
+  mov [CopyBlue+30],ecx //
+  mov ecx,[esi+64]
+  mov [CopyBlue+34],ecx //
+  mov ecx,[esi+68]
+  mov [CopyBlue+38],ecx //
+  mov ecx,[esi+6C]
+  mov [CopyBlue+3C],ecx //
+  mov ecx,[esi+70]
+  mov [CopyBlue+40],ecx //
+  mov ecx,[esi+74]
+  mov [CopyBlue+44],ecx // SL
+  mov ecx,[esi+78]
+  mov [CopyBlue+48],ecx // SR
+  mov ecx,[esi+7C]
+  mov [CopyBlue+4C],ecx // Stick press
+  mov ecx,[esi+80]
+  mov [CopyBlue+50],ecx //
+
+  mov ecx,[esi+90]
+  mov [CopyBlue+54],ecx //Orizontal stick
+  mov ecx,[esi+94]
+  mov [CopyBlue+58],ecx //Vertical stick
+
+  mov ecx,[esi+A4]
+  mov [CopyBlue+5C],ecx //Forward/Backward acceleration
+  mov ecx,[esi+A8]
+  mov [CopyBlue+60],ecx // ? acceleration
+  mov ecx,[esi+AC]
+  mov [CopyBlue+64],ecx // ? acceleration
+
+  mov ecx,[esi+CC]
+  mov [CopyBlue+68],ecx //Pitch
+  mov ecx,[esi+D0]
+  mov [CopyBlue+6C],ecx //Roll
+  mov ecx,[esi+D4]
+  mov [CopyBlue+70],ecx //Yaw
+
+mov ecx,[backupBlue]
+  jmp return
+
+  Red:
+mov [backupRed],ecx
+  mov ecx,[esi+30]
+  mov [CopyRed],ecx //Buttons
+  mov ecx,[esi+34]
+  mov [CopyRed+04],ecx //
+  mov ecx,[esi+38]
+  mov [CopyRed+08],ecx //
+  mov ecx,[esi+3C]
+  mov [CopyRed+0C],ecx //
+  mov ecx,[esi+40]
+  mov [CopyRed+10],ecx //
+  mov ecx,[esi+44]
+  mov [CopyRed+14],ecx //
+  mov ecx,[esi+48]
+  mov [CopyRed+18],ecx //
+  mov ecx,[esi+4C]
+  mov [CopyRed+1C],ecx //
+  mov ecx,[esi+50]
+  mov [CopyRed+20],ecx //
+  mov ecx,[esi+54]
+  mov [CopyRed+24],ecx // A
+  mov ecx,[esi+58]
+  mov [CopyRed+28],ecx // B
+  mov ecx,[esi+5C]
+  mov [CopyRed+2C],ecx // X
+  mov ecx,[esi+60]
+  mov [CopyRed+30],ecx // Y
+  mov ecx,[esi+64]
+  mov [CopyRed+34],ecx // R
+  mov ecx,[esi+68]
+  mov [CopyRed+38],ecx // RZ
+  mov ecx,[esi+6C]
+  mov [CopyRed+3C],ecx // Plus (+)
+  mov ecx,[esi+70]
+  mov [CopyRed+40],ecx // Home
+  mov ecx,[esi+74]
+  mov [CopyRed+44],ecx // SL
+  mov ecx,[esi+78]
+  mov [CopyRed+48],ecx // SR
+  mov ecx,[esi+7C]
+  mov [CopyRed+4C],ecx // Stick press
+  mov ecx,[esi+80]
+  mov [CopyRed+50],ecx //
+
+  mov ecx,[esi+90]
+  mov [CopyRed+54],ecx //Orizontal stick
+  mov ecx,[esi+94]
+  mov [CopyRed+58],ecx //Vertical stick
+
+  mov ecx,[esi+A4]
+  mov [CopyRed+5C],ecx //Forward/Backward acceleration
+  mov ecx,[esi+A8]
+  mov [CopyRed+60],ecx // ? acceleration
+  mov ecx,[esi+AC]
+  mov [CopyRed+64],ecx // ? acceleration
+
+  mov ecx,[esi+CC]
+  mov [CopyRed+68],ecx //Pitch
+  mov ecx,[esi+D0]
+  mov [CopyRed+6C],ecx //Roll
+  mov ecx,[esi+D4]
+  mov [CopyRed+70],ecx //Yaw
+
+mov ecx,[backupRed]
+  jmp return
+
+
+
+Data:
+  jmp Tracker
+  nop
+  nop
+return:
+registersymbol(Data)
+
+[DISABLE]
+
+Data:
+  db 66 89 56 30 83 F8 03
+
+unregistersymbol(Data)
+dealloc(Tracker)
+
+dealloc(CopyBlue)
+unregistersymbol(CopyBlue)
+dealloc(backupBlue)
+
+dealloc(CopyRed)
+unregistersymbol(CopyRed)
+dealloc(backupRed)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Joy-Con (L)"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>FF0000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"Button combo"</Description>
+          <LastState Value="0" RealAddress="02A70000"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyBlue</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"UP"</Description>
+          <LastState Value="0" RealAddress="02A70004"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyBlue+4</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>6</ID>
+          <Description>"DOWN"</Description>
+          <LastState Value="0" RealAddress="02A70008"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyBlue+8</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>7</ID>
+          <Description>"LEFT"</Description>
+          <LastState Value="0" RealAddress="02A7000C"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyBlue+C</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>8</ID>
+          <Description>"RIGHT"</Description>
+          <LastState Value="0" RealAddress="02A70010"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyBlue+10</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>9</ID>
+          <Description>"L"</Description>
+          <LastState Value="0" RealAddress="02A70014"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyBlue+14</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>10</ID>
+          <Description>"ZL"</Description>
+          <LastState Value="0" RealAddress="02A70018"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyBlue+18</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>11</ID>
+          <Description>"Minus (-)"</Description>
+          <LastState Value="0" RealAddress="02A7001C"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyBlue+1C</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>12</ID>
+          <Description>"Screengrab"</Description>
+          <LastState Value="0" RealAddress="02A70020"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyBlue+20</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>13</ID>
+          <Description>"SL"</Description>
+          <LastState Value="0" RealAddress="02A70044"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyBlue+44</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>14</ID>
+          <Description>"SR"</Description>
+          <LastState Value="0" RealAddress="02A70048"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyBlue+48</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>15</ID>
+          <Description>"Stick press"</Description>
+          <LastState Value="0" RealAddress="02A7004C"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyBlue+4C</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>35</ID>
+          <Description>"Orizontal stick direction"</Description>
+          <LastState Value="0" RealAddress="02A70054"/>
+          <VariableType>Float</VariableType>
+          <Address>CopyBlue+54</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>36</ID>
+          <Description>"Vertical stick direction"</Description>
+          <LastState Value="0" RealAddress="02A70058"/>
+          <VariableType>Float</VariableType>
+          <Address>CopyBlue+58</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>45</ID>
+          <Description>"F/B acceleration"</Description>
+          <LastState Value="0.0002677487209" RealAddress="02A7005C"/>
+          <VariableType>Float</VariableType>
+          <Address>CopyBlue+5C</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>50</ID>
+          <Description>"Pitch"</Description>
+          <LastState Value="0.7759077549" RealAddress="02A70068"/>
+          <VariableType>Float</VariableType>
+          <Address>CopyBlue+68</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>51</ID>
+          <Description>"Roll"</Description>
+          <LastState Value="-0.01200244855" RealAddress="02A7006C"/>
+          <VariableType>Float</VariableType>
+          <Address>CopyBlue+6C</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>52</ID>
+          <Description>"Yaw"</Description>
+          <LastState Value="10.12500858" RealAddress="02A70070"/>
+          <VariableType>Float</VariableType>
+          <Address>CopyBlue+70</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Joy-Con (R)"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>0000FF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>16</ID>
+          <Description>"Button combo"</Description>
+          <LastState Value="0" RealAddress="02A703F0"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyRed</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>17</ID>
+          <Description>"A"</Description>
+          <LastState Value="0" RealAddress="02A70414"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyRed+24</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>18</ID>
+          <Description>"B"</Description>
+          <LastState Value="0" RealAddress="02A70418"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyRed+28</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>19</ID>
+          <Description>"X"</Description>
+          <LastState Value="0" RealAddress="02A7041C"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyRed+2C</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>20</ID>
+          <Description>"Y"</Description>
+          <LastState Value="0" RealAddress="02A70420"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyRed+30</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>21</ID>
+          <Description>"R"</Description>
+          <LastState Value="0" RealAddress="02A70424"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyRed+34</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>22</ID>
+          <Description>"Rz"</Description>
+          <LastState Value="0" RealAddress="02A70428"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyRed+38</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>23</ID>
+          <Description>"Plus (+)"</Description>
+          <LastState Value="0" RealAddress="02A7042C"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyRed+3C</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>24</ID>
+          <Description>"HOME"</Description>
+          <LastState Value="0" RealAddress="02A70430"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyRed+40</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>25</ID>
+          <Description>"SL"</Description>
+          <LastState Value="0" RealAddress="02A70434"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyRed+44</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>26</ID>
+          <Description>"SR"</Description>
+          <LastState Value="0" RealAddress="02A70438"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyRed+48</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>27</ID>
+          <Description>"Stick press"</Description>
+          <LastState Value="0" RealAddress="02A7043C"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>CopyRed+4C</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>37</ID>
+          <Description>"Orizontal stick direction"</Description>
+          <LastState Value="0" RealAddress="02A70444"/>
+          <VariableType>Float</VariableType>
+          <Address>CopyRed+54</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>38</ID>
+          <Description>"Vertical stick direction"</Description>
+          <LastState Value="0" RealAddress="02A70448"/>
+          <VariableType>Float</VariableType>
+          <Address>CopyRed+58</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>46</ID>
+          <Description>"F/B acceleration"</Description>
+          <LastState Value="-0.0001602016855" RealAddress="02A7044C"/>
+          <VariableType>Float</VariableType>
+          <Address>CopyRed+5C</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>47</ID>
+          <Description>"Pitch"</Description>
+          <LastState Value="0.9679613709" RealAddress="02A70458"/>
+          <VariableType>Float</VariableType>
+          <Address>CopyRed+68</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>48</ID>
+          <Description>"Roll"</Description>
+          <LastState Value="-0.03801212087" RealAddress="02A7045C"/>
+          <VariableType>Float</VariableType>
+          <Address>CopyRed+6C</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>49</ID>
+          <Description>"Yaw"</Description>
+          <LastState Value="-9.803064346" RealAddress="02A70460"/>
+          <VariableType>Float</VariableType>
+          <Address>CopyRed+70</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>72</ID>
+      <Description>"X: Swap Yaw with Roll axis"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(SwapYawWithRollAxis,joycon-driver.exe,03 F3 0F 10 86 A8 00 00 00) // should be unique
+registersymbol(SwapYawWithRollAxis)
+SwapYawWithRollAxis+01:
+  db F3 0F 10 86 AC 00 00 00
+
+[DISABLE]
+
+SwapYawWithRollAxis+01:
+  db F3 0F 10 86 A8 00 00 00
+
+unregistersymbol(SwapYawWithRollAxis)
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>88</ID>
+      <Description>"Y: SwapPitchWithRoll"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(SwapPitchWithRoll,joycon-driver.exe,F3 0F 59 86 A4 00 00 00) // should be unique
+registersymbol(SwapPitchWithRoll)
+SwapPitchWithRoll:
+  db F3 0F 59 86 A8 00 00 00
+
+[DISABLE]
+
+SwapPitchWithRoll:
+  db F3 0F 59 86 A4 00 00 00
+
+unregistersymbol(SwapPitchWithRoll)
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>78</ID>
+      <Description>"Stuff that can be useful for script making"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>77</ID>
+          <Description>"Allow double gyro reading"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(AllowBothMocap,joycon-driver.exe,74 39 8B 0D F0 4C 6D 00) // should be unique
+registersymbol(AllowBothMocap)
+AllowBothMocap:
+  db EB 39 8B 0D F0 4C 6D 00
+
+[DISABLE]
+
+AllowBothMocap:
+  db 74 39 8B 0D F0 4C 6D 00
+
+unregistersymbol(AllowBothMocap)
+
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>81</ID>
+      <Description>"Gyro to keys"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(debug,08)
+registersymbol(debug)
+debug:
+dd 0
+
+alloc(Controller,08)
+registersymbol(Controller)
+Controller:
+dd #2
+
+alloc(Deadzone,08)
+registersymbol(Deadzone)
+Deadzone:
+dd (float)3
+
+alloc(Jump,08)
+registersymbol(Jump)
+Jump:
+dd (float)12
+
+alloc(NegDeadzone,08)
+NegDeadzone:
+dd (float)-1
+
+alloc(KillSwitch,08)
+registersymbol(KillSwitch)
+KillSwitch:
+dd #0
+
+globalalloc(GyroKeys,1000)
+createthread(GyroKeys)
+
+label(JoyConLeft)
+label(JoyConRight)
+
+label(Avanti)
+label(Dietro)
+label(Sinistra)
+label(Destra)
+label(Salta)
+
+
+
+GyroKeys:
+push #1
+call sleep
+cmp [KillSwitch],#0
+je GyroKeys
+
+cmp [Controller],#1
+je JoyConLeft
+cmp [Controller],#2
+je JoyConRight
+jmp GyroKeys
+
+JoyConLeft:
+
+
+JoyConRight:
+movss xmm1,[CopyRed+6C]
+movss xmm2,[Deadzone]
+comiss xmm1,xmm2
+ja Avanti
+jmp Dietro
+
+Avanti:
+
+
+push ebp
+  sub esp, 28
+  mov [ebp],#1
+  xor eax, eax
+  mov [ebp+6], ax
+  mov [ebp+12], 0
+  mov [ebp+16], 0
+
+  mov ecx,57 //W Key
+  mov [ebp+4], cx
+  // Key press
+  mov [ebp+8], 0
+  push #28
+  push ebp
+  push 1
+  call NtUserSendInput
+  //wait
+  push #10
+  call sleep
+  //release key
+  mov     DWORD PTR [ebp+8],#2
+  push #28
+  push    ebp
+  push    1
+  call    NtUserSendInput
+  add esp,28
+  pop ebp
+
+Dietro:
+movss xmm1,[CopyRed+6C]
+movss xmm2,[Deadzone]
+mulss xmm2,[NegDeadzone]
+comiss xmm1,xmm2
+ja Sinistra
+
+
+push ebp
+  sub esp, 28
+  mov [ebp],#1
+  xor eax, eax
+  mov [ebp+6], ax
+  mov [ebp+12], 0
+  mov [ebp+16], 0
+
+  mov ecx,53 //S Key
+  mov [ebp+4], cx
+  // Key press
+  mov [ebp+8], 0
+  push #28
+  push ebp
+  push 1
+  call NtUserSendInput
+  //wait
+  push #10
+  call sleep
+  //release key
+  mov     DWORD PTR [ebp+8],#2
+  push #28
+  push    ebp
+  push    1
+  call    NtUserSendInput
+  add esp,28
+  pop ebp
+
+Sinistra:
+movss xmm1,[CopyRed+70]
+movss xmm2,[Deadzone]
+comiss xmm1,xmm2
+jb Destra
+
+
+push ebp
+  sub esp, 28
+  mov [ebp],#1
+  xor eax, eax
+  mov [ebp+6], ax
+  mov [ebp+12], 0
+  mov [ebp+16], 0
+
+  mov ecx,41 //A Key
+  mov [ebp+4], cx
+  // Key press
+  mov [ebp+8], 0
+  push #28
+  push ebp
+  push 1
+  call NtUserSendInput
+  //wait
+  push #10
+  call sleep
+  //release key
+  mov     DWORD PTR [ebp+8],#2
+  push #28
+  push    ebp
+  push    1
+  call    NtUserSendInput
+  add esp,28
+  pop ebp
+
+Destra:
+movss xmm1,[CopyRed+70]
+movss xmm2,[Deadzone]
+mulss xmm2,[NegDeadzone]
+comiss xmm1,xmm2
+ja Salta
+
+push ebp
+  sub esp, 28
+  mov [ebp],#1
+  xor eax, eax
+  mov [ebp+6], ax
+  mov [ebp+12], 0
+  mov [ebp+16], 0
+
+  mov ecx,44 //D Key
+  mov [ebp+4], cx
+  // Key press
+  mov [ebp+8], 0
+  push #28
+  push ebp
+  push 1
+  call NtUserSendInput
+  //wait
+  push #10
+  call sleep
+  //release key
+  mov     DWORD PTR [ebp+8],#2
+  push #28
+  push    ebp
+  push    1
+  call    NtUserSendInput
+  add esp,28
+  pop ebp
+
+Salta:
+movss xmm1,[CopyRed+68]
+movss xmm2,[Jump]
+comiss xmm1,xmm2
+jb GyroKeys
+
+push ebp
+  sub esp, 28
+  mov [ebp],#1
+  xor eax, eax
+  mov [ebp+6], ax
+  mov [ebp+12], 0
+  mov [ebp+16], 0
+
+  mov ecx,20 //SPACE Key
+  mov [ebp+4], cx
+  // Key press
+  mov [ebp+8], 0
+  push #28
+  push ebp
+  push 1
+  call NtUserSendInput
+  //wait
+  push #10
+  call sleep
+  //release key
+  mov     DWORD PTR [ebp+8],#2
+  push #28
+  push    ebp
+  push    1
+  call    NtUserSendInput
+  add esp,28
+  pop ebp
+
+jmp GyroKeys
+ret
+[DISABLE]
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>87</ID>
+          <Description>"Deadzone"</Description>
+          <LastState Value="3" RealAddress="02A90010"/>
+          <VariableType>Float</VariableType>
+          <Address>Deadzone</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>82</ID>
+          <Description>"Controller"</Description>
+          <DropDownList ReadOnly="1" DisplayValueAsItem="1">1:Joy-Con (L)
+2:Joy-Con (R)
+</DropDownList>
+          <LastState Value="2" RealAddress="02A90008"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>Controller</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>85</ID>
+          <Description>"KillSwitch"</Description>
+          <LastState Value="0" RealAddress="02A90028"/>
+          <VariableType>4 Bytes</VariableType>
+          <Address>KillSwitch</Address>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Set Value</Action>
+              <Keys>
+                <Key>104</Key>
+              </Keys>
+              <Value>1</Value>
+              <ID>0</ID>
+            </Hotkey>
+            <Hotkey>
+              <Action>Set Value</Action>
+              <Keys>
+                <Key>101</Key>
+              </Keys>
+              <Value>0</Value>
+              <ID>1</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>86</ID>
+      <Description>"debug"</Description>
+      <LastState Value="0" RealAddress="02A90000"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>debug</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>Read</Name>
+      <Address>00FA0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>asmMsgBox</Name>
+      <Address>016F03F0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>bypassScript</Name>
+      <Address>02B90000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>procid</Name>
+      <Address>14C0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>test</Name>
+      <Address>014D0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>asmJingleBells</Name>
+      <Address>016F0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>dobeep</Name>
+      <Address>016F0490</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>start</Name>
+      <Address>0AEC0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>AllCraftAOB</Name>
+      <Address>14016D516</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>FreeCraftAOB</Name>
+      <Address>1402D4A33</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>NoGoodsConsume</Name>
+      <Address>14049D900</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>UnlimitedItems2</Name>
+      <Address>1402DD036</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>PlayerNew</Name>
+      <Address>13FAD0771</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>Calculator</Name>
+      <Address>02FF0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>testKey</Name>
+      <Address>52E20000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>_preset</Name>
+      <Address>158509D0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>FindData</Name>
+      <Address>158509E0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ThisTestMem</Name>
+      <Address>15EB0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>KeyboardHijack</Name>
+      <Address>0DC60000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>BunnyHop</Name>
+      <Address>40E803F0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>Send</Name>
+      <Address>25DA2F80000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>Sendaaa</Name>
+      <Address>2BBF4550000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>fakemem</Name>
+      <Address>07100000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>Calc</Name>
+      <Address>07510000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>KeyboardEvents</Name>
+      <Address>005D0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>Draw</Name>
+      <Address>01230000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>Gyro</Name>
+      <Address>02BC0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>GyroKeys</Name>
+      <Address>02A80000</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+  <LuaScript>local addy = getAddress("JoyConR_PITCH")
+local f = io.open("shareaddr.txt","w")
+f:write(addy)
+f:close()
+</LuaScript>
+</CheatTable>
