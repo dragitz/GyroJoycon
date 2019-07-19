@@ -7,3 +7,6 @@ Fun I had with joycons
 3) Modified joycon driver https://github.com/fossephate/JoyCon-Driver/issues/125#issuecomment-502791376
 4) The cheat table
 5) Two joycons (or at least one)
+
+# How to setup the joycons
+do something like this https://imgur.com/fqNWjbF
