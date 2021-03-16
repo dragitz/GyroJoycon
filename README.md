@@ -1,5 +1,5 @@
 # GyroJoycon
-Fun I had with joycons
+Fun I had with joycons, it allows creation of music. It's an old project of mine and not optimized.
 
 # What you need
 1) vJoy (read the readme https://github.com/fossephate/JoyCon-Driver)
